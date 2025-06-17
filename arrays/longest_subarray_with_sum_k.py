@@ -40,8 +40,9 @@ class Solution:
 
 arr1 = [5, 2, 6, 7, 0, 1, 5]
 arr2 = [9, 1, -14, 2, 6, 8, 10, -12, -5]
+arr3 = [-2,-1,2,1]
 
-k = 6
+k = 1
 s = Solution()
 # print(s.longestSubarrayPos(arr1, k))
-print(s.longestSubarrayNeg(arr2, k))
+print(s.longestSubarrayNeg(arr3, k))
