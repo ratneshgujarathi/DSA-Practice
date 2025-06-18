@@ -1,7 +1,8 @@
 class ListNode:
-    def __init__(self, val, next=None):
+    def __init__(self, val, next=None, prev=None):
         self.val = val
         self.next = next
+        self.prev = prev
 
 class LinkedList:
     def __init__(self):
@@ -17,31 +18,35 @@ class LinkedList:
             curr = curr.next
 
         curr.next = node
+        node.prev = curr
 
 
     def insert_at_beginning(self, node:ListNode):
-        if not self.head:
-            self.head = node
-            return
         node.next = self.head
+        if self.head:
+            self.head.prev = node
         self.head = node
 
     def insert_node_at_position(self, pos ,node: ListNode):
         if pos == 0:
-            self.insert_at_beginning(node)
+            self.insert_beginning(node.data)  # Or handle `node` directly
+            return
 
-        ind = 1
         curr = self.head
-        while curr.next:
-            if pos == ind:
+        index = 0
+
+        while curr:
+            if index == pos - 1:
                 node.next = curr.next
+                node.prev = curr
+                if curr.next:
+                    curr.next.prev = node  # Fix backward link
                 curr.next = node
                 return
-            else:
-                curr = curr.next
-                ind+=1
+            curr = curr.next
+            index += 1
 
-        print('position not found')
+        print("Position out of bounds")
 
     def update_node_at_position(self, pos, val):
         ind = 0
@@ -118,34 +123,34 @@ class LinkedList:
 
         self.head = prev
 
-ll = LinkedList()
-ll.insert_at_end(ListNode(1))
-ll.print_linked_list()
+dl = LinkedList()
+dl.insert_at_end(ListNode(1))
+dl.print_linked_list()
 
-ll.insert_at_end(ListNode(2))
-ll.print_linked_list()
+dl.insert_at_end(ListNode(2))
+dl.print_linked_list()
 
-ll.insert_at_end(ListNode(3))
-ll.print_linked_list()
+dl.insert_at_end(ListNode(3))
+dl.print_linked_list()
 
-ll.insert_at_beginning(ListNode(4))
-ll.print_linked_list()
+dl.insert_at_beginning(ListNode(4))
+dl.print_linked_list()
 
-ll.insert_node_at_position(1, ListNode(5))
-ll.print_linked_list()
+dl.insert_node_at_position(1, ListNode(5))
+dl.print_linked_list()
 
-ll.update_node_at_position(2, 7)
-ll.print_linked_list()
+dl.update_node_at_position(2, 7)
+dl.print_linked_list()
 
-ll.update_node_with_val(5, 8)
-ll.print_linked_list()
+dl.update_node_with_val(5, 8)
+dl.print_linked_list()
 
-ll.delete_node_with_val(8)
-ll.print_linked_list()
+dl.delete_node_with_val(8)
+dl.print_linked_list()
 
-print(ll.search_with_val(7))
+print(dl.search_with_val(7))
 
-print(ll.length())
+print(dl.length())
 
-ll.reverse()
-ll.print_linked_list()
+dl.reverse()
+dl.print_linked_list()
