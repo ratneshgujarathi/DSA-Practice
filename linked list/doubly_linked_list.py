@@ -29,7 +29,7 @@ class LinkedList:
 
     def insert_node_at_position(self, pos ,node: ListNode):
         if pos == 0:
-            self.insert_beginning(node.data)  # Or handle `node` directly
+            self.insert_at_beginning(node)  # Or handle `node` directly
             return
 
         curr = self.head
@@ -40,7 +40,7 @@ class LinkedList:
                 node.next = curr.next
                 node.prev = curr
                 if curr.next:
-                    curr.next.prev = node  # Fix backward link
+                    curr.next.prev = node  
                 curr.next = node
                 return
             curr = curr.next
@@ -72,12 +72,11 @@ class LinkedList:
 
     def delete_node_with_val(self, key):
         curr = self.head
-        prev = None
+        
         while curr.next:
             if curr.val == key:
-                prev.next = curr.next
+                curr.prev = curr.next
                 return
-            prev = curr
             curr = curr.next
 
     def print_linked_list(self):
@@ -112,7 +111,6 @@ class LinkedList:
         return length
     
     def reverse(self):
-        prev = None
         curr = self.head
 
         while curr:
