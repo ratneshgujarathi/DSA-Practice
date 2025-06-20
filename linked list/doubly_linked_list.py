@@ -49,9 +49,13 @@ class LinkedList:
         print("Position out of bounds")
 
     def update_node_at_position(self, pos, val):
+        if pos == 0:
+            self.head.val = val
+            return
+        
         ind = 0
         curr = self.head
-        while curr.next:
+        while curr:
             if pos == ind:
                 curr.val = val
                 return
