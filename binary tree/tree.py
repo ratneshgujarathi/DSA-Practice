@@ -1,4 +1,5 @@
 from collections import deque
+
 class BT:
     def __init__(self, val, left=None, right=None):
         self.data = val
@@ -43,7 +44,7 @@ def dfs(root):
     dfs(root.right)
 
 
-def bfs(root):
+def bfs(root, ans):
     if root is None:
         return
 
@@ -51,13 +52,15 @@ def bfs(root):
     q.append(root)
 
     while q:
+        level = []
         for _ in range(len(q)):
             node = q.popleft()
-
+            level.append(node.data)
             if node.left:
                 q.append(node.left)
             if node.right:
                 q.append(node.right)
+        ans.append(level)
             
 def pre_order_traversal(root):
     if root is None:
@@ -93,10 +96,12 @@ tree.insert(6)
 tree.insert(7)
 
 
-pre_order_traversal(tree.root)
-post_order_traversal(tree.root)
-in_order_traversal(tree.root)
+# pre_order_traversal(tree.root)
+# post_order_traversal(tree.root)
+# in_order_traversal(tree.root)
 
-dfs(tree.root)
+# dfs(tree.root)
+ans = []
+bfs(tree.root, ans)
 
-bfs(tree.root)
+print(ans)
